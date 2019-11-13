@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends "csvapp/base.html" %}
+{% block body_block %}
+    <div class="jumbotron">
+        {%if post %}
+        <h1>Employee Data</h1>
+        <table border="2">
+            <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Country</th>
+            </thead>
+         {% for item in obj %}
+                <tr>
+                    <td>{{ item.name|title }}</td>
+                    <td>{{ item.email|title }}</td>
+                    <td>{{ item.phone|title }}</td>
+                    <td>{{ item.city|title }}</td>
+                    <td>{{ item.country|title }}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+
+        {%else%}
+            <p>Add Csv file</p>
+
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="file1"> Upload a file</label>
+                <input type="file" id="file1" name="file">
+                {% csrf_token %}
+                {%csrf_token%}
+                <input type="submit" value="Upload" class="btn btn-info">
+            </form>
+        {%endif%}
+
+    </div>
+{% endblock %}
